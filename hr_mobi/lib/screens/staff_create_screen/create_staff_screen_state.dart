@@ -27,10 +27,12 @@ final class CreateStaffScreenSuccessState extends CreateStaffScreenState {
 
 final class CreateStaffScreenErrorState extends CreateStaffScreenState {
   const CreateStaffScreenErrorState({
-    required this.createStaffError,
+    this.createStaffError,
+    this.message,
   });
 
-  final CreateStaffError createStaffError;
+  final CreateStaffError? createStaffError;
+  final String? message;
 
   @override
   List<Object> get props => [];

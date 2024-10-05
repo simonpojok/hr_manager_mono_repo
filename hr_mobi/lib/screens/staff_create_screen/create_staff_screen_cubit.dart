@@ -22,13 +22,22 @@ class CreateStaffScreenCubit extends Cubit<CreateStaffScreenState> {
       emit(CreateStaffScreenSuccessState(staff: staff));
     }).catchError((error, stackTrace) {
       if (error is DioException) {
-        emit(
-          CreateStaffScreenErrorState(
-            createStaffError: CreateStaffErrorResponse.fromJson(
-              error.response?.data,
-            ).error,
-          ),
-        );
+        if (error.response?.statusCode == 403) {
+          emit(
+            const CreateStaffScreenErrorState(
+              message:
+                  'Many attempts made, please try again in next 10 minutes',
+            ),
+          );
+        } else {
+          emit(
+            CreateStaffScreenErrorState(
+              createStaffError: CreateStaffErrorResponse.fromJson(
+                error.response?.data,
+              ).error,
+            ),
+          );
+        }
       }
 
       debugPrint(error.toString());

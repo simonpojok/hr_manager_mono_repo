@@ -121,11 +121,23 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
                     }
 
                     if (state is CreateStaffScreenErrorState) {
-                      for (String key in state.createStaffError.toJson().keys) {
-                        _formKey.field(key).errorText = (state.createStaffError
-                                .toJson()[key] as List<String>?)
-                            ?.join(', ');
-                        debugPrint(_formKey.field(key).errorText);
+                      if (state.message != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text(state.message ?? ''),
+                          ),
+                        );
+                      }
+                      if (state.createStaffError != null) {
+                        for (String key
+                            in state.createStaffError!.toJson().keys) {
+                          _formKey.field(key).errorText =
+                              (state.createStaffError!.toJson()[key]
+                                      as List<String>?)
+                                  ?.join(', ');
+                          debugPrint(_formKey.field(key).errorText);
+                        }
                       }
                     }
                   },
