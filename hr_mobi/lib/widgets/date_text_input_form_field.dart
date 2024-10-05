@@ -41,7 +41,7 @@ class _DateTextInputFormFieldState extends State<DateTextInputFormField> {
         FormeField<String?>(
           validator: widget.validator ?? FormeValidates.notEmpty(),
           name: widget.name,
-          builder: (FormeFieldState<String?> state) {
+          builder: (FormeFieldState<String?> formState) {
             return TextField(
               controller: textEditingController,
               readOnly: true,
@@ -53,7 +53,7 @@ class _DateTextInputFormFieldState extends State<DateTextInputFormField> {
                 );
                 final updatedDate =
                     DateFormat('yyyy-MM-dd').format(date ?? DateTime.now());
-                state.didChange(updatedDate);
+                formState.didChange(updatedDate);
                 textEditingController.text = updatedDate;
               },
               decoration: InputDecoration(
@@ -69,7 +69,7 @@ class _DateTextInputFormFieldState extends State<DateTextInputFormField> {
                     );
                     final updatedDate =
                         DateFormat('yyyy-MM-dd').format(date ?? DateTime.now());
-                    state.didChange(updatedDate);
+                    formState.didChange(updatedDate);
                     textEditingController.text = updatedDate;
                   },
                   icon: const Icon(Icons.date_range_outlined),
@@ -81,14 +81,16 @@ class _DateTextInputFormFieldState extends State<DateTextInputFormField> {
                 ),
               ),
               onChanged: (text) {
-                state.didChange(text);
+                formState.didChange(text);
               },
             );
           },
           initialValue: textEditingController.text,
           onInitialized: (state) {
-            textEditingController.text = DateFormat('dd-MM-yyyy').format(
-              DateTime.tryParse(state.value!) ?? DateTime.now(),
+            final value = DateTime.tryParse(state.value!) ?? DateTime.now();
+            textEditingController.text = DateFormat('dd-MM-yyyy').format(value);
+            state.didChange(
+              DateFormat('yyyy-MM-dd').format(value),
             );
           },
           decorator: FormeInputDecorationDecorator(

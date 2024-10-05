@@ -6,6 +6,7 @@ import 'package:hr_mobi/widgets/context_extension_path.dart';
 
 import '../../widgets/ball_scale_loading_indicator.dart';
 import '../../widgets/empty_list_view.dart';
+import '../staff_create_screen/create_staff_screen.dart';
 import '../staff_detail_screen/staff_detail_screen.dart';
 
 class StaffsScreen extends StatefulWidget {
@@ -33,46 +34,51 @@ class _StaffsScreenState extends State<StaffsScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              context.go('${context.currentPath}/${StaffDetailScreen.path}');
+              context.go('${context.currentPath}/${CreateStaffScreen.path}');
             },
             icon: const Icon(Icons.add),
           ),
         ],
       ),
       body: SafeArea(
-        child: BlocBuilder<StaffsScreenCubit, StaffsScreenState>(
-          builder: (context, state) {
-            return switch (state) {
-              StaffsScreenInitialState() => const LoadingIndicator(),
-              StaffsScreenLoadingState() => const LoadingIndicator(),
-              StaffsScreenSuccessState() =>
-                ListViewUtils.separatedWithEmptyView(
-                  separatorBuilder: (_, i) => const Divider(),
-                  itemBuilder: (context, item) => ListTile(
-                    leading: const CircleAvatar(
-                      backgroundColor: Colors.grey,
-                      child: Icon(Icons.person),
-                    ),
-                    onTap: () {
-                      context.go(
-                        '${context.currentPath}/${StaffDetailScreen.buildPath(item)}',
-                      );
-                    },
-                    title: Text(item.fullName),
-                    subtitle: Row(
-                      children: [
-                        const Icon(Icons.calendar_month, size: 18),
-                        const SizedBox(width: 10),
-                        Text(item.actualDateOfBirth),
-                      ],
-                    ),
-                    trailing: const Icon(Icons.arrow_forward_ios),
-                  ),
-                  items: state.staffs,
-                ),
-              StaffsScreenErrorState() => const LoadingIndicator(),
-            };
+        child: RefreshIndicator(
+          onRefresh: () async {
+            context.read<StaffsScreenCubit>().getCompanyStaffs();
           },
+          child: BlocBuilder<StaffsScreenCubit, StaffsScreenState>(
+            builder: (context, state) {
+              return switch (state) {
+                StaffsScreenInitialState() => const LoadingIndicator(),
+                StaffsScreenLoadingState() => const LoadingIndicator(),
+                StaffsScreenSuccessState() =>
+                  ListViewUtils.separatedWithEmptyView(
+                    separatorBuilder: (_, i) => const Divider(),
+                    itemBuilder: (context, item) => ListTile(
+                      leading: const CircleAvatar(
+                        backgroundColor: Colors.grey,
+                        child: Icon(Icons.person),
+                      ),
+                      onTap: () {
+                        context.go(
+                          '${context.currentPath}/${StaffDetailScreen.buildPath(item)}',
+                        );
+                      },
+                      title: Text(item.fullName),
+                      subtitle: Row(
+                        children: [
+                          const Icon(Icons.calendar_month, size: 18),
+                          const SizedBox(width: 10),
+                          Text(item.actualDateOfBirth),
+                        ],
+                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    ),
+                    items: state.staffs,
+                  ),
+                StaffsScreenErrorState() => const LoadingIndicator(),
+              };
+            },
+          ),
         ),
       ),
     );

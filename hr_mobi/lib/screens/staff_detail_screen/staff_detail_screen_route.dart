@@ -14,15 +14,16 @@ final staffDetailScreenRoute = GoRoute(
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => StaffDetailUpdateCubit(
+          create: (context) => StaffDetailScreenCubit(
             staffRepository: context.read(),
           ),
         ),
         BlocProvider(
-          create: (context) => StaffDetailScreenCubit(
+          create: (context) => StaffDetailUpdateCubit(
             staffRepository: context.read(),
+            staffDetailScreenCubit: context.read(),
           ),
-        )
+        ),
       ],
       child: StaffDetailScreen(
         staffId: staffId,

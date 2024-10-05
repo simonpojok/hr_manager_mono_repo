@@ -5,6 +5,8 @@ part 'staff.g.dart';
 
 @JsonSerializable()
 class Staff {
+  @JsonKey(name: 'unique_code')
+  final int? uniqueCode;
   final int? id;
   final String surname;
   @JsonKey(name: 'other_names')
@@ -21,6 +23,7 @@ class Staff {
       );
 
   const Staff({
+    this.uniqueCode,
     this.id,
     required this.surname,
     required this.otherNames,

@@ -67,7 +67,7 @@ class _StaffDetailScreenState extends State<StaffDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Stuff'),
+        title: const Text('Staff Details'),
         elevation: 2,
       ),
       body: SafeArea(
@@ -118,7 +118,7 @@ class _StaffDetailScreenState extends State<StaffDetailScreen> {
                           },
                         ),
                         const SizedBox(height: 40),
-                        BlocBuilder<StaffDetailUpdateCubit,
+                        BlocConsumer<StaffDetailUpdateCubit,
                             StaffDetailUpdateState>(
                           builder: (context, staffUpdateState) {
                             return LoadingStateElevatedButton(
@@ -131,6 +131,27 @@ class _StaffDetailScreenState extends State<StaffDetailScreen> {
                                   is StaffDetailUpdateLoadingState,
                               label: 'UPDATE ROLE',
                             );
+                          },
+                          listener: (context, state) {
+                            if (state is StaffDetailUpdateSuccessState) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  backgroundColor: Colors.green,
+                                  content: Text('Staff Created Successfully'),
+                                ),
+                              );
+                            }
+
+                            if (state is StaffDetailUpdateErrorState) {
+                              for (String key
+                                  in state.createStaffError.toJson().keys) {
+                                _formKey.field(key).errorText =
+                                    (state.createStaffError.toJson()[key]
+                                            as List<String>?)
+                                        ?.join(', ');
+                                debugPrint(_formKey.field(key).errorText);
+                              }
+                            }
                           },
                         )
                       ],

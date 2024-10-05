@@ -15,6 +15,7 @@ class StaffDetailScreenCubit extends Cubit<StaffDetailScreenState> {
   final StaffRepository staffRepository;
 
   void getStaffMemberDetail(int id) {
+    emit(StaffDetailScreenLoadingState());
     staffRepository.getStaffMemberWithId(id).then((staff) {
       emit(StaffDetailScreenSuccessState(staffMember: staff));
     }).catchError((error, stackTrace) {
@@ -25,5 +26,9 @@ class StaffDetailScreenCubit extends Cubit<StaffDetailScreenState> {
       debugPrint(error.toString());
       debugPrintStack(stackTrace: stackTrace);
     });
+  }
+
+  void updateStaffDetail(Staff staff) {
+    emit(StaffDetailScreenSuccessState(staffMember: staff));
   }
 }

@@ -32,6 +32,16 @@ class StaffRepository {
     );
     return GetStaffMemberResponse.fromJson(response.data).data;
   }
+
+  Future<Staff> createStaffMember({
+    required Staff staff,
+  }) async {
+    final response = await dio.post(
+      '/api/staff/register/',
+      data: staff.toJson(),
+    );
+    return GetStaffMemberResponse.fromJson(response.data).data;
+  }
 }
 
 @JsonSerializable()

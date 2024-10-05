@@ -20,6 +20,12 @@ final class StaffDetailUpdateSuccessState extends StaffDetailUpdateState {
 }
 
 final class StaffDetailUpdateErrorState extends StaffDetailUpdateState {
+  const StaffDetailUpdateErrorState({
+    required this.createStaffError,
+  });
+
+  final CreateStaffError createStaffError;
+
   @override
   List<Object> get props => [];
 }
