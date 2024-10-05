@@ -2,6 +2,12 @@ from rest_framework import serializers
 from .models import Staff, AuthenticationCode
 
 
+class GeneralResponseSerializer(serializers.Serializer):
+    status = serializers.CharField(max_length=10)
+    message = serializers.CharField(max_length=255)
+    data = serializers.JSONField(required=False, allow_null=True)
+
+
 # noinspection PyMethodMayBeStatic
 class StaffSerializer(serializers.ModelSerializer):
     unique_code = serializers.CharField(max_length=10, min_length=10, write_only=True)
