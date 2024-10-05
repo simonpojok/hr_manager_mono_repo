@@ -10,11 +10,13 @@ class FileInputFormField extends StatefulWidget {
     required this.label,
     required this.name,
     this.validator,
+    this.onFileContentChanged,
   });
 
   final String label;
   final String name;
   final FormeValidator? validator;
+  final Function(String?)? onFileContentChanged;
 
   @override
   State<FileInputFormField> createState() => _FileInputFormFieldState();
@@ -38,25 +40,11 @@ class _FileInputFormFieldState extends State<FileInputFormField> {
         ),
         const SizedBox(height: 10),
         FormeField<String?>(
-          validator: widget.validator ?? FormeValidates.notEmpty(),
+          validator: widget.validator,
           name: widget.name,
           builder: (FormeFieldState<String?> state) {
             textEditingController.text =
                 state.value == null ? 'No File Attached' : 'File Attached';
-
-            void handlePickFile() async {
-              final tempFile = await picker.pickImage(
-                source: ImageSource.gallery,
-              );
-
-              if (tempFile != null) {
-                final file = File(tempFile.path);
-                final bytes = await file.readAsBytes();
-                final base64String = base64Encode(bytes);
-                print(base64String);
-                state.didChange(base64String);
-              }
-            }
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,13 +52,41 @@ class _FileInputFormFieldState extends State<FileInputFormField> {
                 TextField(
                   controller: textEditingController,
                   readOnly: true,
-                  onTap: handlePickFile,
+                  onTap: () async {
+                    final tempFile = await picker.pickImage(
+                      source: ImageSource.gallery,
+                    );
+
+                    if (tempFile != null) {
+                      final file = File(tempFile.path);
+                      final bytes = await file.readAsBytes();
+                      final base64String = base64Encode(bytes);
+                      if (widget.onFileContentChanged != null) {
+                        widget.onFileContentChanged!(base64String);
+                      }
+                      state.didChange(base64String);
+                    }
+                  },
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.transparent),
                     ),
                     suffixIcon: IconButton(
-                      onPressed: handlePickFile,
+                      onPressed: () async {
+                        final tempFile = await picker.pickImage(
+                          source: ImageSource.gallery,
+                        );
+
+                        if (tempFile != null) {
+                          final file = File(tempFile.path);
+                          final bytes = await file.readAsBytes();
+                          final base64String = base64Encode(bytes);
+                          if (widget.onFileContentChanged != null) {
+                            widget.onFileContentChanged!(base64String);
+                          }
+                          state.didChange(base64String);
+                        }
+                      },
                       icon: const Icon(Icons.file_present_sharp),
                     ),
                     contentPadding: const EdgeInsets.symmetric(
@@ -104,12 +120,6 @@ class _FileInputFormFieldState extends State<FileInputFormField> {
               ],
             );
           },
-          // decorator: FormeInputDecorationDecorator(
-          //   decorationBuilder: (context) => const InputDecoration(
-          //     border: OutlineInputBorder(),
-          //     contentPadding: EdgeInsets.zero,
-          //   ),
-          // ),
           initialValue: null,
         ),
       ],

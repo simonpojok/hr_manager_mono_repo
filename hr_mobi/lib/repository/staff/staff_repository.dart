@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hr_mobi/model/staff/staff.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -16,6 +17,19 @@ class StaffRepository {
 
   Future<Staff> getStaffMemberWithId(int id) async {
     final response = await dio.get('/api/staff/retrieve/$id');
+    return GetStaffMemberResponse.fromJson(response.data).data;
+  }
+
+  Future<Staff> updateStaffMemberWithId({
+    required int id,
+    required Staff staff,
+  }) async {
+    debugPrint(staff.toJson().toString());
+
+    final response = await dio.put(
+      '/api/staff/update/$id/',
+      data: staff.toJson(),
+    );
     return GetStaffMemberResponse.fromJson(response.data).data;
   }
 }

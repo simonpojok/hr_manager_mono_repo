@@ -10,13 +10,15 @@ class Staff {
   @JsonKey(name: 'other_names')
   final String otherNames;
   @JsonKey(name: 'dob')
-  final DateTime dateOfBirth;
+  final String dateOfBirth;
   @JsonKey(name: 'id_photo')
   final String? idPhoto;
 
   String get fullName => '$surname, $otherNames';
 
-  String get actualDateOfBirth => DateFormat('dd MMM yyyy').format(dateOfBirth);
+  String get actualDateOfBirth => DateFormat('dd MMM yyyy').format(
+        DateTime.tryParse(dateOfBirth) ?? DateTime.now(),
+      );
 
   const Staff({
     this.id,

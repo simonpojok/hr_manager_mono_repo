@@ -52,7 +52,7 @@ class _DateTextInputFormFieldState extends State<DateTextInputFormField> {
                   maxDate: DateTime.now(),
                 );
                 final updatedDate =
-                    DateFormat('dd-MM-yyyy').format(date ?? DateTime.now());
+                    DateFormat('yyyy-MM-dd').format(date ?? DateTime.now());
                 state.didChange(updatedDate);
                 textEditingController.text = updatedDate;
               },
@@ -68,7 +68,7 @@ class _DateTextInputFormFieldState extends State<DateTextInputFormField> {
                       maxDate: DateTime.now(),
                     );
                     final updatedDate =
-                        DateFormat('dd-MM-yyyy').format(date ?? DateTime.now());
+                        DateFormat('yyyy-MM-dd').format(date ?? DateTime.now());
                     state.didChange(updatedDate);
                     textEditingController.text = updatedDate;
                   },

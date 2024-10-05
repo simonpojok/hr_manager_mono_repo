@@ -14,7 +14,9 @@ final staffDetailScreenRoute = GoRoute(
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => StaffDetailUpdateCubit(),
+          create: (context) => StaffDetailUpdateCubit(
+            staffRepository: context.read(),
+          ),
         ),
         BlocProvider(
           create: (context) => StaffDetailScreenCubit(

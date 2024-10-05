@@ -4,6 +4,7 @@ import 'package:forme/forme.dart';
 import 'package:hr_mobi/model/staff/staff.dart';
 import 'package:hr_mobi/screens/staff_detail_screen/staff_detail_screen_cubit.dart';
 import 'package:hr_mobi/screens/staff_detail_screen/staff_detail_update_cubit.dart';
+import 'package:intl/intl.dart';
 
 import '../../widgets/ball_scale_loading_indicator.dart';
 import '../../widgets/date_text_input_form_field.dart';
@@ -30,6 +31,7 @@ class StaffDetailScreen extends StatefulWidget {
 
 class _StaffDetailScreenState extends State<StaffDetailScreen> {
   final _formKey = FormeKey();
+  String? base64ImageFile;
 
   @override
   void initState() {
@@ -40,6 +42,25 @@ class _StaffDetailScreenState extends State<StaffDetailScreen> {
     }
 
     super.initState();
+  }
+
+  void handleUpdateStaffDetail({required Staff oldStaffData}) {
+    final staffDetailUpdateCubit = context.read<StaffDetailUpdateCubit>();
+    _formKey.validate().then((formState) {
+      if (formState.isValid) {
+        staffDetailUpdateCubit.updateStaffInformation(
+          id: oldStaffData.id ?? 0,
+          staff: Staff.fromJson({
+            ...oldStaffData.toJson(),
+            ...formState.value,
+            'id_photo': base64ImageFile,
+          }),
+        );
+      }
+    }).catchError((error, stackTrace) {
+      debugPrint(error.toString());
+      debugPrintStack(stackTrace: stackTrace);
+    });
   }
 
   @override
@@ -89,17 +110,25 @@ class _StaffDetailScreenState extends State<StaffDetailScreen> {
                           name: 'dob',
                         ),
                         const SizedBox(height: 20),
-                        const FileInputFormField(
+                        FileInputFormField(
                           label: 'ID Photo',
-                          name: 'photo_file',
+                          name: 'id_photo',
+                          onFileContentChanged: (base64Image) {
+                            base64ImageFile = base64Image;
+                          },
                         ),
                         const SizedBox(height: 40),
                         BlocBuilder<StaffDetailUpdateCubit,
                             StaffDetailUpdateState>(
-                          builder: (context, state) {
+                          builder: (context, staffUpdateState) {
                             return LoadingStateElevatedButton(
-                              onTapped: () {},
-                              isLoading: state is StaffDetailUpdateSuccessState,
+                              onTapped: () {
+                                handleUpdateStaffDetail(
+                                  oldStaffData: state.staffMember,
+                                );
+                              },
+                              isLoading: staffUpdateState
+                                  is StaffDetailUpdateLoadingState,
                               label: 'UPDATE ROLE',
                             );
                           },
