@@ -9,17 +9,15 @@ import random
 def register_staff(request):
     serializer = StaffSerializer(data=request.data)
     if serializer.is_valid():
-        # Generate a random 10-digit employee number
-        # serializer.save(employee_number=f"{random.randint(1000000000, 9999999999)}")
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
-def retrieve_staff(request, employee_id=None):
-    if employee_id:
+def retrieve_staff(request, staff_id=None):
+    if staff_id:
         try:
-            staff = Staff.objects.get(id=employee_id)
+            staff = Staff.objects.get(id=staff_id)
             serializer = StaffSerializer(staff)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Staff.DoesNotExist:
@@ -30,9 +28,9 @@ def retrieve_staff(request, employee_id=None):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['PUT', 'PATCH'])
-def update_staff(request, employee_id):
+def update_staff(request, staff_id=None):
     try:
-        staff = Staff.objects.get(employee_id=employee_id)
+        staff = Staff.objects.get(id=staff_id)
     except Staff.DoesNotExist:
         return Response({'error': 'Staff not found'}, status=status.HTTP_404_NOT_FOUND)
 
