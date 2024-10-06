@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "5013068c-c581-4777-8325-b8ca0b533469",
+		"name": "DFCU API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18927429"
+	},
+	"item": [
+		{
+			"name": "Staff Registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"unique_code\": \"9260160833\",\n    \"surname\": \"Ojok\",\n    \"other_names\": \"Simon Peter\",\n    \"dob\": \"1994-09-06\",\n    \"id_photo\": \"base 64 string\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/staff/register/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"staff",
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Staffs List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/staff/retrieve/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"staff",
+						"retrieve",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Staff Detail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/api/staff/retrieve/1",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"staff",
+						"retrieve",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Update Staff",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"surname\": \"Nimaro\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/staff/update/1/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"staff",
+						"update",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Auth Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"simonpojok\",\n    \"password\": \"!id3v3l0p3r\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/auth/token/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Statics",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI4MjIxNzE5LCJpYXQiOjE3MjgyMjE0MTksImp0aSI6IjJmMmJhYmE0YzQyYTQ0NzE4YTc0ZmYzZmMwZmJkN2VlIiwidXNlcl9pZCI6NX0.AZoANZOawwyr8L75_z0zTjX3tgNL6zeiAd_sEiVcROA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/api/statistics/requests",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"statistics",
+						"requests"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
