@@ -200,3 +200,11 @@ Below are some screenshots showing how to use the mobile app:
 - Use the provided admin credentials to manage network logs and staff registrations.
 
 For more detailed API usage, refer to the Postman collection attached to this repository.
+
+
+![Screenshot 2024-10-06 at 3 10 57 pm](https://github.com/user-attachments/assets/6542ebbb-68a8-44dc-a08e-457922a330f1)
+![Screenshot 2024-10-06 at 3 10 43 pm](https://github.com/user-attachments/assets/b491add2-f734-40f3-8b7b-34e4422ce019)
+![Screenshot_1728216613](https://github.com/user-attachments/assets/7ecaf526-c112-422d-a931-07d02d521810)
+![Screenshot_1728216609](https://github.com/user-attachments/assets/7204b0fe-c250-4d4b-9b29-2a7808385951)
+![Screenshot_1728216602](https://github.com/user-attachments/assets/6757b0a7-e1c5-4c29-a4ce-50288e1f9966)
+
