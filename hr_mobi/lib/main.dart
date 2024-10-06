@@ -1,16 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hr_mobi/repository/staff/staff_repository.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'main_router.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
+
   final httpClientConfig = BaseOptions(
-    baseUrl: 'http://10.0.2.2:8000',
-    // connectTimeout: const Duration(seconds: 5),
-    // receiveTimeout: const Duration(seconds: 3),
+    baseUrl: dotenv.env['BASE_API_URL'] ?? '',
   );
 
   final httpClient = Dio(httpClientConfig);
@@ -37,6 +38,7 @@ class HRMobiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       routerConfig: mainRouter,
       title: 'HR Mobis',
       theme: ThemeData(
