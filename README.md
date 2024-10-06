@@ -1,6 +1,7 @@
 
 # HR Manager API Documentation
 
+This repository is a **monorepo** containing multiple projects that work together to manage staff, monitor network requests, and provide a mobile interface for creating and managing staff records.
 This project is a **Django**-based backend API for managing staff registrations, network request logging, and statistics. The backend is currently deployed on **Render** and can be accessed using the links provided below.
 
 ## Deployment Guide
@@ -15,6 +16,27 @@ Start by cloning the repository to your local machine:
 git clone https://github.com/your-username/hr-manager.git
 cd hr-manager/hr_manager
 ```
+## Project Structure
+
+1. **Folder: `hr_manager`**  
+   This folder contains the **Django** project, which serves as the **backend** of the application. It provides APIs for staff registration and network logging.  
+   - The backend can be accessed here: [https://hr-manager-mono-repo.onrender.com/](https://hr-manager-mono-repo.onrender.com/)
+   
+2. **Folder: `hr_mobi`**  
+   This folder contains a **Flutter** mobile application that consumes the backend API provided by `hr_manager`. The mobile app allows users to create and manage staff records.
+   - **Unique Code Requirement**: To create a new staff member using the mobile app, a **unique code** is required. You can generate this unique code from the backend API here: [https://hr-manager-mono-repo.onrender.com/](https://hr-manager-mono-repo.onrender.com/).
+   - The combined API documentation for the mobile app is located under the **assets** folder in this repository.
+
+3. **Folder: `hr_network_monitor`**  
+   This folder contains a **React Next.js** application that displays network call statistics. The dashboard shows logs of API requests made to the backend and various statistics about network performance.  
+   - The network monitoring dashboard can be accessed here: [https://hr-manager-network-monitor.onrender.com/dashboard](https://hr-manager-network-monitor.onrender.com/dashboard).
+   - **Login Credentials**: To access the dashboard, use the following credentials:
+     - **Username**: `admin1`
+     - **Password**: `@staff4y2024`
+     - **Username**: `admin2`
+     - **Password**: `@staff4y2024`
+     - **Username**: `admin3`
+     - **Password**: `@staff4y2024`
 
 ### 2. Set Up the Environment Variables
 
