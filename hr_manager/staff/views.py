@@ -1,3 +1,4 @@
+from django_ratelimit.decorators import ratelimit
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -6,6 +7,7 @@ from .serializers import CreateStaffSerializer, GeneralResponseSerializer, Updat
 import random
 
 
+@ratelimit(key='ip', rate='5/m', method='POST', block=True)
 @api_view(['POST'])
 def register_staff(request):
     serializer = CreateStaffSerializer(data=request.data)
