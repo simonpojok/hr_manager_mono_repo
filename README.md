@@ -1,20 +1,83 @@
+
 # HR Manager API Documentation
 
 This project is a **Django**-based backend API for managing staff registrations, network request logging, and statistics. The backend is currently deployed on **Render** and can be accessed using the links provided below.
 
 ## Deployment Guide
 
-To deploy the Django project, follow these steps and ensure the environment variables are configured correctly:
+Follow the steps below to deploy the **HR Manager** Django backend.
 
-### Required Environment Variables
+### 1. Clone the Repository
 
-- **`DEBUG`**: Set to `False` in production to disable debug mode.
-- **`DATABASE_URL`**: The database connection string for the production database.
-- **`SECRET_KEY`**: A unique secret key for cryptographic signing in Django.
-- **`ALLOWED_HOSTS`**: The allowed domains/hosts that can serve your application (e.g., `['yourdomain.com', 'localhost']`).
-- **`CORS_ALLOWED_ORIGINS`**: A list of allowed origins to handle cross-origin resource sharing (CORS).
+Start by cloning the repository to your local machine:
 
-The backend is deployed on **Render** and can be accessed from this URL: [https://hr-manager-mono-repo.onrender.com](https://hr-manager-mono-repo.onrender.com).
+```bash
+git clone https://github.com/your-username/hr-manager.git
+cd hr-manager/hr_manager
+```
+
+### 2. Set Up the Environment Variables
+
+Create a file named `.env` in the root of the `hr_manager` folder by copying the contents of the `.env.example` file and filling in the missing information:
+
+```bash
+cp .env.example .env
+```
+
+In the `.env` file, set the following variables:
+
+```bash
+DEBUG=False
+SECRET_KEY=your-secret-key
+ALLOWED_HOSTS=yourdomain.com, localhost
+
+DATABASE_URL=your-database-url
+
+EMAIL_HOST=smtp.example.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=your-email@example.com
+EMAIL_HOST_PASSWORD=your-email-password
+
+CORS_ALLOWED_ORIGINS=https://yourfrontenddomain.com
+
+CSRF_COOKIE_SECURE=True
+SESSION_COOKIE_SECURE=True
+SECURE_SSL_REDIRECT=True
+X_FRAME_OPTIONS='DENY'
+```
+
+- **`DEBUG`**: Set to `False` for production.
+- **`SECRET_KEY`**: Set this to a unique secret key for your Django application.
+- **`ALLOWED_HOSTS`**: Add the domain names or IP addresses that are allowed to connect to your app.
+- **`DATABASE_URL`**: The connection string to your database.
+- **`EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USE_TLS`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`**: Configure your email settings for sending email notifications.
+- **`CORS_ALLOWED_ORIGINS`**: List of allowed origins for cross-origin requests.
+- **Security Settings**:
+  - **`CSRF_COOKIE_SECURE`**: Ensures CSRF cookies are sent over HTTPS.
+  - **`SESSION_COOKIE_SECURE`**: Ensures session cookies are sent over HTTPS.
+  - **`SECURE_SSL_REDIRECT`**: Redirects all HTTP requests to HTTPS.
+  - **`X_FRAME_OPTIONS`**: Prevents the site from being framed, set to `'DENY'`.
+
+### 3. Install Dependencies
+
+Install the required dependencies using `pip`:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Run the Project Using Gunicorn
+
+Once the environment is set up and the dependencies are installed, run the project using **Gunicorn**:
+
+```bash
+gunicorn hr_manager.wsgi --bind 0.0.0.0:8000
+```
+
+This will start the Django application on port 8000. You can change the port or other Gunicorn options as needed.
+
+---
 
 ## API Endpoints
 
