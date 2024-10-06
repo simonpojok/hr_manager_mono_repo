@@ -1,0 +1,1 @@
+# hr_manager_mono_repo
