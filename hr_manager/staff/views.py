@@ -116,3 +116,6 @@ def unique_code_view(request):
         return redirect('unique_code')
 
     return render(request, 'unique_code_template.html', {'current_code': current_code})
+
+def custom_404_view(request, exception):
+    return render(request, '404.html', status=404)

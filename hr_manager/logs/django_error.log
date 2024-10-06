@@ -1,0 +1,10 @@
+Internal Server Error: /api/staff/404
+Traceback (most recent call last):
+  File "/Users/simonpojok/PycharmProjects/dfcu_mini_project/hr_manager/.venv/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/simonpojok/PycharmProjects/dfcu_mini_project/hr_manager/.venv/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: custom_404_view() missing 1 required positional argument: 'exception'
+"GET /api/staff/404 HTTP/1.1" 500 90330
