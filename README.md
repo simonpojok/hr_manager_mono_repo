@@ -112,6 +112,135 @@ This API has the following available endpoints (with success status codes). Deta
 - **Method**: `POST`
 - **Description**: Register a new staff member using a unique code.
 
+- **Sample Request
+```json
+
+{
+    "unique_code": "9260160833",
+    "surname": "Ojok",
+    "other_names": "Simon Peter",
+    "dob": "1994-09-06",
+    "id_photo": "base 64 string"
+}
+```
+
+- **Sample Response
+```json
+
+{
+    "status": "success",
+    "message": "Staff registered successfully",
+    "data": {
+        "id": 4,
+        "surname": "Ojok",
+        "other_names": "Simon Peter",
+        "dob": "1994-09-06",
+        "id_photo": "base 64 string"
+    },
+    "error": null
+}
+```
+
+### Get Staff List
+
+- **Endpoint**: `/api/staff/retrieve/`
+- **Method**: `GET`
+- **Description**: Returns All Staff Registered so far
+
+- **Sample Response
+```json
+
+{
+    "status": "success",
+    "message": "Staffs retrieved successfully",
+    "data": [
+        {
+            "id": 1,
+            "surname": "Alison",
+            "other_names": "Mark",
+            "dob": "2024-09-10",
+            "id_photo": "base 64 string"
+        },
+        {
+            "id": 2,
+            "surname": "Don",
+            "other_names": "Amos",
+            "dob": "2024-10-01",
+            "id_photo": null
+        },
+        {
+            "id": 3,
+            "surname": "Okello",
+            "other_names": "Danel",
+            "dob": "2024-10-06",
+            "id_photo": "base 64 string"
+        },
+        {
+            "id": 4,
+            "surname": "Ojok",
+            "other_names": "Simon Peter",
+            "dob": "1994-09-06",
+            "id_photo": "base 64 string"
+        }
+    ],
+    "error": null
+}
+```
+### Staff Detail
+
+- **Endpoint**: `/api/staff/retrieve/{id}`
+- **Method**: `GET`
+- **Description**: Gets detail of a staff by ID
+
+- **Sample Response
+```json
+
+{
+    "status": "success",
+    "message": "Staff retrieved successfully",
+    "data": {
+        "id": 1,
+        "surname": "Alison",
+        "other_names": "Mark",
+        "dob": "2024-09-10",
+        "id_photo": "base 64 string"
+    },
+    "error": null
+}
+```
+
+### Update Staff Detail
+
+- **Endpoint**: `/api/staff/update/{id}/`
+- **Method**: `PUT`
+- **Description**: Update Details of the staff with the ID attached
+
+- **Sample Request
+```json
+
+{
+    "surname": "Nimaro"
+}
+```
+
+- **Sample Response
+```json
+
+{
+    "status": "success",
+    "message": "Staff updated successfully",
+    "data": {
+        "id": 1,
+        "surname": "Nimaro",
+        "other_names": "Mark",
+        "dob": "2024-09-10",
+        "id_photo": "base 64 string"
+    },
+    "error": null
+}
+```
+
+
 ### Network Logs
 
 - **Endpoint**: `/api/network-logs/`
@@ -124,6 +253,51 @@ This API has the following available endpoints (with success status codes). Deta
 - **Method**: `GET`
 - **Description**: Get statistics of network requests, including successful and failed request counts.
 
+- **Sample Response
+```json
+
+{
+    "count": 35,
+    "next": "http://localhost:8000/api/statistics/requests?page=2",
+    "previous": null,
+    "results": {
+        "failed_requests_count": 16,
+        "successful_requests_count": 19,
+        "total_requests_count": 35,
+        "requests_by_method": [
+            {
+                "method": "GET",
+                "count": 27
+            },
+            {
+                "method": "POST",
+                "count": 6
+            },
+            {
+                "method": "PUT",
+                "count": 2
+            }
+        ],
+        "requests": [
+            {
+                "id": 35,
+                "method": "PUT",
+                "path": "/api/staff/update/1/",
+                "response_status": 200,
+                "timestamp": "2024-10-06T13:25:58.867104Z"
+            },
+            {
+                "id": 34,
+                "method": "GET",
+                "path": "/api/staff/retrieve/1/",
+                "response_status": 200,
+                "timestamp": "2024-10-06T13:22:19.611087Z"
+            },
+        ]
+    }
+}
+```
+
 ## Steps to Test the Project
 
 1. **Generate a Unique Code**: 
@@ -131,7 +305,7 @@ This API has the following available endpoints (with success status codes). Deta
    - This code is required to create a new staff member using the mobile app.
 
 2. **View Network Statistics**:
-   - Visit the dashboard for network monitoring at [https://hr-manager-network-monitor.onrender.com/dashboard](https://hr-manager-network-monitor.onrender.com/dashboard).
+   - Visit the dashboard for network monitoring at [https://hr-manager-network-monitor.onrender.com/dashboard](https://hr-manager-network-monitor.onrender.com/login).
    - Use the following credentials to log in:
 
       - **Username**: `admin1`
