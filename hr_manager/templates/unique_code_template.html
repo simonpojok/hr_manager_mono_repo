@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unique Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .code-box {
+            font-size: 2em;
+            color: #4CAF50;
+            background-color: #e8f5e9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .code-box span {
+            margin-right: 10px;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .copy-btn {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        .copy-btn:hover {
+            background-color: #1e88e5;
+        }
+        .copy-confirmation {
+            display: none;
+            color: #4CAF50;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Authentication Code Generator</h1>
+
+        <div class="code-box">
+            <span id="code">{{ current_code }}</span>
+            <button id="copyBtn" class="copy-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16">
+                    <path d="M10 1H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h2v1H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3h-1V2a1 1 0 0 0-1-1z"/>
+                    <path d="M14 3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm1 10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v8z"/>
+                </svg>
+                <span style="margin-left: 5px;">Copy</span>
+            </button>
+        </div>
+
+        <div id="copyConfirmation" class="copy-confirmation">Code copied to clipboard!</div>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn">Generate New Code</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const code = document.getElementById('code').textContent;
+            navigator.clipboard.writeText(code).then(function() {
+                // Show confirmation message
+                const confirmation = document.getElementById('copyConfirmation');
+                confirmation.style.display = 'block';
+                setTimeout(function() {
+                    confirmation.style.display = 'none';
+                }, 2000);
+            }).catch(function(error) {
+                console.error('Error copying text: ', error);
+            });
+        });
+    </script>
+</body>
+</html>
