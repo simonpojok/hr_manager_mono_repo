@@ -251,7 +251,7 @@ This API has the following available endpoints (with success status codes). Deta
 
 - **Endpoint**: `/api/network-logs/stats/`
 - **Method**: `GET`
-- **Description**: Get statistics of network requests, including successful and failed request counts.
+- **Description**: Get statistics of network requests, including successful and failed request counts. The api requires a bearing token, you can login use this api `https://hr-manager-mono-repo.onrender.com/api/auth/token/` which accepts a post request with `username` and `password` and it returns the required tokens
 
 - **Sample Response
 ```json
