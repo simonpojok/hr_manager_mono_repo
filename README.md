@@ -4,18 +4,6 @@
 This repository is a **monorepo** containing multiple projects that work together to manage staff, monitor network requests, and provide a mobile interface for creating and managing staff records.
 This project is a **Django**-based backend API for managing staff registrations, network request logging, and statistics. The backend is currently deployed on **Render** and can be accessed using the links provided below.
 
-## Deployment Guide
-
-Follow the steps below to deploy the **HR Manager** Django backend.
-
-### 1. Clone the Repository
-
-Start by cloning the repository to your local machine:
-
-```bash
-git clone https://github.com/your-username/hr-manager.git
-cd hr-manager/hr_manager
-```
 ## Project Structure
 
 1. **Folder: `hr_manager`**  
@@ -37,6 +25,19 @@ cd hr-manager/hr_manager
      - **Password**: `@staff4y2024`
      - **Username**: `admin3`
      - **Password**: `@staff4y2024`
+
+## Deployment Guide
+
+Follow the steps below to deploy the **HR Manager** Django backend.
+
+### 1. Clone the Repository
+
+Start by cloning the repository to your local machine:
+
+```bash
+git clone https://github.com/your-username/hr-manager.git
+cd hr-manager/hr_manager
+```
 
 ### 2. Set Up the Environment Variables
 
